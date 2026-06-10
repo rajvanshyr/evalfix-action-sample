@@ -1,0 +1,25 @@
+tests:
+  - id: refund_recent_active_warranty
+    input: "I bought my device 12 days ago and the warranty is active. Can I get a refund?"
+    expected: "Approve the refund because the purchase is recent and the warranty is active."
+    grader: semantic
+
+  - id: refund_expired_warranty
+    input: "I bought this 10 days ago, but the warranty expired. Can I get a refund?"
+    expected: "Do not approve the refund because the warranty is not active."
+    grader: semantic
+
+  - id: refund_outside_window
+    input: "My device is under warranty, but I bought it 45 days ago. Can I return it?"
+    expected: "Do not approve the refund because the purchase is outside the 30-day window."
+    grader: semantic
+
+  - id: unavailable_refund_escalation
+    input: "I bought this 60 days ago and still want a refund. What can I do?"
+    expected: "Decline the refund and offer escalation to a human support specialist."
+    grader: semantic
+
+  - id: concise_policy_explanation
+    input: "What is your refund policy?"
+    expected: "Explain that refunds require purchase within 30 days and an active warranty."
+    grader: semantic

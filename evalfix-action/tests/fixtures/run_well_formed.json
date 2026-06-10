@@ -1,0 +1,33 @@
+{
+  "total": 4,
+  "passed": 2,
+  "failed": 2,
+  "score": 0.5,
+  "results": [
+    {
+      "id": "regression",
+      "pass": false,
+      "grader": "semantic",
+      "input": "Can I get a refund?",
+      "expected": "Decline an expired-warranty refund.",
+      "actual": "Yes.",
+      "reason": "Approved an ineligible refund."
+    },
+    {
+      "id": "pre_existing_failure",
+      "pass": false,
+      "grader": "semantic",
+      "reason": "Still fails on both branches."
+    },
+    {
+      "id": "fixed_case",
+      "pass": true,
+      "grader": "contains"
+    },
+    {
+      "id": "passing_case",
+      "pass": true,
+      "grader": "exact"
+    }
+  ]
+}

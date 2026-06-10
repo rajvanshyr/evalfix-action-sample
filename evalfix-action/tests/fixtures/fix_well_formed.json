@@ -1,0 +1,15 @@
+{
+  "diagnosis": "Expired-warranty requests are incorrectly approved.",
+  "root_cause": "prompt",
+  "confidence": 0.91,
+  "diff": "--- prompt.txt\n+++ prompt.txt\n@@ -1 +1 @@\n- Refund within 30 days.\n+ Refund within 30 days only with an active warranty.",
+  "before": {
+    "passed": 38,
+    "total": 40
+  },
+  "after": {
+    "passed": 40,
+    "total": 40
+  },
+  "previously_passing_intact": true
+}

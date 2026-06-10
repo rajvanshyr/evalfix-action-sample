@@ -1,0 +1,31 @@
+{
+  "status": "completed",
+  "pass_count": 3,
+  "fail_count": 2,
+  "total_count": 5,
+  "avg_score": 0.72,
+  "results": [
+    {
+      "test_id": "refund_recent_active_warranty",
+      "input": "Can I get a refund?",
+      "expected": "",
+      "actual": "Yes.",
+      "passed": true,
+      "score": 0.95,
+      "latency_ms": 110,
+      "judge_reasoning": "The response follows the policy.",
+      "error": null
+    },
+    {
+      "test_id": "refund_expired_warranty",
+      "input": "The warranty expired.",
+      "expected": "",
+      "actual": "Yes.",
+      "passed": false,
+      "score": 0.1,
+      "latency_ms": 120,
+      "judge_reasoning": "The response approved an ineligible refund.",
+      "error": null
+    }
+  ]
+}

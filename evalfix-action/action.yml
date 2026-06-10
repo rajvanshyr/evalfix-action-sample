@@ -1,0 +1,75 @@
+name: EvalFix
+description: Catch behavioral regressions in LLM agents and propose a verified fix.
+author: EvalFix
+
+branding:
+  icon: check-circle
+  color: purple
+
+inputs:
+  project_dir:
+    description: Directory containing prompt.txt and evals.yaml.
+    required: true
+  suggest_fix:
+    description: Run the fix loop on a throwaway copy when regressions exist.
+    required: false
+    default: "false"
+  fail_on_regression:
+    description: Fail the job when head introduces regressions versus the baseline.
+    required: false
+    default: "true"
+  baseline:
+    description: Comparison mode. Supported values are base-branch and none.
+    required: false
+    default: base-branch
+  max_cases:
+    description: Maximum number of eval cases to execute.
+    required: false
+    default: "100"
+  timeout_minutes:
+    description: Maximum duration for each EvalFix CLI invocation.
+    required: false
+    default: "15"
+  comment:
+    description: Create or update the sticky pull-request comment.
+    required: false
+    default: "true"
+
+outputs:
+  passed:
+    description: Number of passing cases on the pull-request head.
+    value: ${{ steps.evalfix.outputs.passed }}
+  total:
+    description: Number of cases evaluated on the pull-request head.
+    value: ${{ steps.evalfix.outputs.total }}
+  regressions:
+    description: Number of cases that passed on base and fail on head.
+    value: ${{ steps.evalfix.outputs.regressions }}
+  score_delta:
+    description: Head score minus base score, or an empty value without a baseline.
+    value: ${{ steps.evalfix.outputs.score_delta }}
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Install EvalFix
+      shell: bash
+      run: python -m pip install --disable-pip-version-check evalfix pyyaml requests
+
+    - name: Evaluate agent behavior
+      id: evalfix
+      shell: bash
+      env:
+        INPUT_PROJECT_DIR: ${{ inputs.project_dir }}
+        INPUT_SUGGEST_FIX: ${{ inputs.suggest_fix }}
+        INPUT_FAIL_ON_REGRESSION: ${{ inputs.fail_on_regression }}
+        INPUT_BASELINE: ${{ inputs.baseline }}
+        INPUT_MAX_CASES: ${{ inputs.max_cases }}
+        INPUT_TIMEOUT_MINUTES: ${{ inputs.timeout_minutes }}
+        INPUT_COMMENT: ${{ inputs.comment }}
+      run: python "${GITHUB_ACTION_PATH}/src/main.py"

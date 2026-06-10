@@ -1,0 +1,17 @@
+{
+  "results": [
+    {
+      "id": "known_pass",
+      "pass": true
+    },
+    {
+      "grader": "semantic",
+      "pass": false
+    },
+    {
+      "id": "unknown_status",
+      "pass": "yes"
+    },
+    "not-an-object"
+  ]
+}
